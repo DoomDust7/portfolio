@@ -34,11 +34,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+        navbar.classList.remove('scrolled');
     }
 });
 
@@ -48,24 +46,83 @@ const observerOptions = {
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('is-visible');
+            entry.target.addEventListener('transitionend', () => {
+                entry.target.classList.remove('fade-in-up');
+            }, { once: true });
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.skill-category, .project-card, .about-text, .about-image');
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    const applyTheme = (theme) => {
+        document.body.setAttribute('data-theme', theme);
+        themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    };
+
+    applyTheme(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        let newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // Staggered Animation Logic
+    const animatedGrids = document.querySelectorAll('.skills-grid, .projects-grid');
+    animatedGrids.forEach(grid => {
+        const animatedElements = grid.querySelectorAll('.skill-category, .project-card');
+        animatedElements.forEach((el, index) => {
+            el.classList.add('fade-in-up');
+            el.style.transitionDelay = `${index * 100}ms`;
+            observer.observe(el);
+        });
+    });
+
+    const otherAnimatedElements = document.querySelectorAll('.about-text, .about-image');
+    otherAnimatedElements.forEach(el => {
+        el.classList.add('fade-in-up');
         observer.observe(el);
+    });
+
+    // Project Filtering Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Set active class on button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+
+            projectCards.forEach(card => {
+                const categories = card.dataset.category.split(' ');
+                const shouldShow = filter === 'all' || categories.includes(filter);
+
+                card.style.transition = 'opacity 0.3s ease';
+
+                if (shouldShow) {
+                    card.style.opacity = '1';
+                    card.style.display = 'block';
+                } else {
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300); // match transition duration
+                }
+            });
+        });
     });
 });
 
@@ -94,10 +151,10 @@ document.querySelectorAll('.project-card').forEach(card => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
+        const rotateX = (y - centerY) / 20; // Reduced intensity
+        const rotateY = (centerX - x) / 20; // Reduced intensity
         
-        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`; // Reduced z-translation
     });
     
     card.addEventListener('mouseleave', function() {
@@ -254,6 +311,7 @@ window.addEventListener('load', () => {
 
 // Preloader (optional)
 const preloader = document.createElement('div');
+preloader.id = 'preloader';
 preloader.innerHTML = `
     <div style="
         position: fixed;

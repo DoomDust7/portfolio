@@ -21,6 +21,9 @@
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -211,8 +214,14 @@
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="data-science-ml">Data Science & ML</button>
+                <button class="filter-btn" data-filter="data-engineering">Data Engineering</button>
+                <button class="filter-btn" data-filter="web-app-dev">Web & App Dev</button>
+            </div>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" data-category="data-engineering">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-oil-can"></i>
@@ -237,7 +246,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="data-science-ml">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-truck"></i>
@@ -262,7 +271,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="data-science-ml">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-chart-pie"></i>
@@ -287,7 +296,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="web-app-dev data-engineering">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-calculator"></i>
@@ -312,7 +321,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="data-science-ml">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-chart-line"></i>
@@ -339,7 +348,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-category="web-app-dev">
                     <div class="project-image">
                         <div class="project-placeholder">
                             <i class="fas fa-video"></i>
