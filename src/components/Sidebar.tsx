@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { Grid3x3 } from "lucide-react";
 import { apps } from "@/lib/data";
+import { APP_ICONS } from "@/lib/appIcons";
 
 interface SidebarProps {
   openApps: Set<string>;
@@ -27,8 +29,12 @@ export default function Sidebar({ openApps, onOpen, onActivities }: SidebarProps
           onClick={onActivities}
           className="w-11 h-11 rounded-lg flex items-center justify-center transition-all"
           style={{
-            background: hovered === "__activities__" ? "rgba(233,84,32,0.2)" : "rgba(255,255,255,0.06)",
-            color: hovered === "__activities__" ? "var(--accent-orange)" : "#94a3b8",
+            background:
+              hovered === "__activities__"
+                ? "rgba(233,84,32,0.2)"
+                : "rgba(255,255,255,0.06)",
+            color:
+              hovered === "__activities__" ? "var(--accent-orange)" : "#94a3b8",
           }}
           aria-label="Activities"
         >
@@ -50,7 +56,14 @@ export default function Sidebar({ openApps, onOpen, onActivities }: SidebarProps
       </div>
 
       {/* Separator */}
-      <div style={{ width: 36, height: 1, background: "rgba(255,255,255,0.12)", margin: "4px 0" }} />
+      <div
+        style={{
+          width: 36,
+          height: 1,
+          background: "rgba(255,255,255,0.12)",
+          margin: "4px 0",
+        }}
+      />
 
       {/* App icons */}
       {apps.map((app) => {
@@ -67,19 +80,30 @@ export default function Sidebar({ openApps, onOpen, onActivities }: SidebarProps
 
             <button
               onClick={() => onOpen(app.id)}
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-xl transition-all"
+              className="w-11 h-11 rounded-xl flex items-center justify-center transition-all"
               style={{
                 background: isOpen
                   ? "rgba(233,84,32,0.15)"
                   : hovered === app.id
                   ? "rgba(255,255,255,0.1)"
                   : "rgba(255,255,255,0.05)",
-                border: isOpen ? "1px solid rgba(233,84,32,0.3)" : "1px solid rgba(255,255,255,0.07)",
+                border: isOpen
+                  ? "1px solid rgba(233,84,32,0.3)"
+                  : "1px solid rgba(255,255,255,0.07)",
                 transform: hovered === app.id ? "scale(1.12)" : "scale(1)",
+                padding: 0,
               }}
               aria-label={app.label}
             >
-              {app.icon}
+              <div style={{ position: "relative", width: 28, height: 28 }}>
+                <Image
+                  src={APP_ICONS[app.id]}
+                  alt={app.label}
+                  fill
+                  className="object-contain"
+                  sizes="28px"
+                />
+              </div>
             </button>
 
             {/* Open dot indicator */}

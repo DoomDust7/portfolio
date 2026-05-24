@@ -2,19 +2,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg-base: #080c14;
-  --bg-window: #1e1e2e;
-  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-base: #030610;
+  --bg-window: #2d2d2d;
+  --bg-card: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.08);
   --accent-purple: #818cf8;
   --accent-cyan: #22d3ee;
   --accent-orange: #E95420;
-  --text-primary: #e2e8f0;
-  --text-muted: #64748b;
-  --sidebar-bg: rgba(22, 10, 35, 0.92);
-  --panel-bg: rgba(14, 14, 20, 0.88);
-  --window-chrome: #252535;
-  --window-border: rgba(255,255,255,0.07);
+  --text-primary: #ffffff;
+  --text-muted: #a9a9a9;
+  --sidebar-bg: rgba(28, 28, 28, 0.97);
+  --panel-bg: rgba(24, 24, 24, 0.92);
+  --window-chrome: #3c3b37;
+  --window-border: rgba(255,255,255,0.10);
 }
 
 * {

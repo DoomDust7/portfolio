@@ -6,6 +6,9 @@ import Sidebar from "./Sidebar";
 import AppLauncher from "./AppLauncher";
 import ContextMenu from "./ContextMenu";
 import Window from "./Window";
+import GlobeWallpaper from "./GlobeWallpaper";
+import DesktopClock from "./DesktopClock";
+import DesktopIcons from "./DesktopIcons";
 import AboutApp from "./apps/AboutApp";
 import ExperienceApp from "./apps/ExperienceApp";
 import EducationApp from "./apps/EducationApp";
@@ -16,7 +19,7 @@ import ContactApp from "./apps/ContactApp";
 import SpotifyApp from "./apps/SpotifyApp";
 import TerminalApp from "./apps/TerminalApp";
 import JourneyApp from "./apps/JourneyApp";
-import { apps, WALLPAPERS } from "@/lib/data";
+import { apps } from "@/lib/data";
 
 type WindowState = {
   id: string;
@@ -77,7 +80,6 @@ let zCounter = 200;
 
 export default function Desktop() {
   const [windows, setWindows] = useState<WindowState[]>(initialWindows);
-  const [wallpaper, setWallpaper] = useState(WALLPAPERS[0].css);
   const [launcherOpen, setLauncherOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
 
@@ -94,16 +96,22 @@ export default function Desktop() {
   }, []);
 
   const closeWindow = useCallback((id: string) => {
-    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, isOpen: false } : w)));
+    setWindows((prev) =>
+      prev.map((w) => (w.id === id ? { ...w, isOpen: false } : w))
+    );
   }, []);
 
   const minimizeWindow = useCallback((id: string) => {
-    setWindows((prev) => prev.map((w) => (w.id === id ? { ...w, isMinimized: true } : w)));
+    setWindows((prev) =>
+      prev.map((w) => (w.id === id ? { ...w, isMinimized: true } : w))
+    );
   }, []);
 
   const maximizeWindow = useCallback((id: string) => {
     setWindows((prev) =>
-      prev.map((w) => (w.id === id ? { ...w, isMaximized: !w.isMaximized } : w))
+      prev.map((w) =>
+        w.id === id ? { ...w, isMaximized: !w.isMaximized } : w
+      )
     );
   }, []);
 
@@ -146,12 +154,18 @@ export default function Desktop() {
           left: 64,
           right: 0,
           bottom: 0,
-          background: wallpaper,
-          backgroundImage: `${wallpaper}, radial-gradient(rgba(129, 140, 248, 0.06) 1px, transparent 1px)`,
-          backgroundSize: "auto, 28px 28px",
           overflow: "hidden",
         }}
       >
+        {/* Animated Earth globe wallpaper */}
+        <GlobeWallpaper />
+
+        {/* Desktop clock — bottom left */}
+        <DesktopClock />
+
+        {/* Desktop icon column — right side */}
+        <DesktopIcons onOpen={openWindow} />
+
         {/* Windows */}
         <AnimatePresence>
           {windows.map((win) => {
@@ -197,7 +211,6 @@ export default function Desktop() {
           x={contextMenu.x}
           y={contextMenu.y}
           onClose={() => setContextMenu(null)}
-          onChangeWallpaper={setWallpaper}
           onOpenTerminal={() => openWindow("terminal")}
           onActivities={() => setLauncherOpen(true)}
         />
