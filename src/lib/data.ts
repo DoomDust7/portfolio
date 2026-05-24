@@ -210,4 +210,13 @@ export const apps = [
   { id: "resume", label: "Resume", icon: "📄" },
   { id: "contact", label: "Contact", icon: "✉️" },
   { id: "spotify", label: "Spotify", icon: "🎵" },
+  { id: "terminal", label: "Terminal", icon: "🖥️" },
+];
+
+export const WALLPAPERS = [
+  { id: "aurora", label: "Aurora", css: "radial-gradient(ellipse at 20% 50%, #1a0533 0%, #080c14 50%, #0d1f3c 100%)" },
+  { id: "ubuntu", label: "Ubuntu", css: "linear-gradient(135deg, #2C001E 0%, #3D0D2B 40%, #1a0028 100%)" },
+  { id: "ocean", label: "Ocean", css: "linear-gradient(160deg, #0a1628 0%, #0c2a4a 60%, #051020 100%)" },
+  { id: "forest", label: "Forest", css: "radial-gradient(ellipse at top, #001a0d 0%, #000d05 100%)" },
+  { id: "sunset", label: "Sunset", css: "linear-gradient(160deg, #1a0033 0%, #3d0011 50%, #1f0a00 100%)" },
 ];

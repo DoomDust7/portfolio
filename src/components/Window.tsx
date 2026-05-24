@@ -37,6 +37,7 @@ export default function Window({
 }: WindowProps) {
   const nodeRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [size, setSize] = useState({ width: defaultSize.width, height: defaultSize.height });
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -45,9 +46,34 @@ export default function Window({
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const windowStyle = isMaximized || isMobile
-    ? { top: 28, left: 0, right: 0, bottom: 56, width: "100%", height: "calc(100% - 84px)" }
-    : { width: defaultSize.width, height: defaultSize.height };
+  const onResizeStart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startW = size.width;
+    const startH = size.height;
+    const onMove = (ev: MouseEvent) => {
+      setSize({
+        width: Math.max(320, startW + ev.clientX - startX),
+        height: Math.max(240, startH + ev.clientY - startY),
+      });
+    };
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+
+  const effectiveSize = isMaximized || isMobile
+    ? { width: "100%", height: "100%" }
+    : { width: size.width, height: size.height };
+
+  const positionStyle = isMaximized || isMobile
+    ? { top: 32, left: 64, right: 0, bottom: 0 }
+    : {};
 
   return (
     <AnimatePresence>
@@ -68,7 +94,8 @@ export default function Window({
             style={{
               position: "absolute",
               zIndex,
-              ...(isMaximized || isMobile ? windowStyle : { width: defaultSize.width, height: defaultSize.height }),
+              ...effectiveSize,
+              ...positionStyle,
             }}
             className="rounded-xl overflow-hidden shadow-2xl flex flex-col"
             onClick={onFocus}
@@ -77,8 +104,8 @@ export default function Window({
             <div
               className="window-titlebar flex items-center gap-3 px-3 py-2 flex-shrink-0"
               style={{
-                background: "#1a2235",
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                background: "var(--window-chrome)",
+                borderBottom: "1px solid var(--window-border)",
                 minHeight: 40,
               }}
             >
@@ -113,6 +140,19 @@ export default function Window({
             >
               {children}
             </div>
+
+            {/* Resize handle */}
+            {!isMaximized && !isMobile && (
+              <div
+                className="resize-handle"
+                onMouseDown={onResizeStart}
+                style={{ zIndex: 10 }}
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" style={{ position: "absolute", bottom: 3, right: 3 }}>
+                  <path d="M9 1L1 9M9 5L5 9M9 9" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+            )}
           </motion.div>
         </Draggable>
       )}

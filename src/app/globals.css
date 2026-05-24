@@ -1,15 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 :root {
   --bg-base: #080c14;
-  --bg-window: #0f1623;
+  --bg-window: #1e1e2e;
   --bg-card: rgba(255, 255, 255, 0.04);
   --border: rgba(255, 255, 255, 0.08);
   --accent-purple: #818cf8;
   --accent-cyan: #22d3ee;
+  --accent-orange: #E95420;
   --text-primary: #e2e8f0;
   --text-muted: #64748b;
-  --dock-bg: rgba(10, 16, 30, 0.75);
+  --sidebar-bg: rgba(22, 10, 35, 0.92);
+  --panel-bg: rgba(14, 14, 20, 0.88);
+  --window-chrome: #252535;
+  --window-border: rgba(255,255,255,0.07);
 }
 
 * {
@@ -159,3 +164,28 @@ body {
   25% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
   75% { transform: translateY(10px) translateX(-10px); opacity: 0.2; }
 }
+
+/* Ubuntu sidebar */
+.ubuntu-sidebar { width: 64px; background: var(--sidebar-bg); border-right: 1px solid rgba(255,255,255,0.05); }
+.sidebar-active-bar { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 28px; background: var(--accent-orange); border-radius: 0 3px 3px 0; }
+
+/* Context menu */
+.context-menu { background: var(--bg-window); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); min-width: 180px; }
+.context-item { padding: 7px 12px; border-radius: 5px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+.context-item:hover { background: rgba(129,140,248,0.15); }
+.context-separator { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+
+/* App launcher */
+.launcher-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 16px; cursor: pointer; text-align: center; transition: all 0.15s ease; }
+.launcher-card:hover { background: rgba(129,140,248,0.12); border-color: rgba(129,140,248,0.3); transform: scale(1.04); }
+
+/* Resize handle */
+.resize-handle { position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; cursor: se-resize; opacity: 0.4; }
+.resize-handle:hover { opacity: 1; }
+
+/* Terminal */
+.terminal-output { font-family: "Ubuntu Mono", monospace; font-size: 0.8rem; line-height: 1.6; }
+.terminal-prompt { color: #4ade80; }
+.terminal-cmd { color: #e2e8f0; }
+.terminal-error { color: #f87171; }
+.terminal-info { color: var(--accent-cyan); }
