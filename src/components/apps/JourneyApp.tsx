@@ -23,7 +23,7 @@ const ERAS: Era[] = [
 
 const MILESTONES: Milestone[] = [
   {
-    year: "1998",
+    year: "2008",
     icon: "🎮",
     title: "The Beginning",
     desc: "Windows 98 PC. Desert Storm. NFS Underground 2 on my dad's XP laptop. A gamer before I knew what code was.",
