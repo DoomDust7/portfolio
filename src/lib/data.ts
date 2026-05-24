@@ -209,4 +209,5 @@ export const apps = [
   { id: "projects", label: "Projects", icon: "🚀" },
   { id: "resume", label: "Resume", icon: "📄" },
   { id: "contact", label: "Contact", icon: "✉️" },
+  { id: "spotify", label: "Spotify", icon: "🎵" },
 ];

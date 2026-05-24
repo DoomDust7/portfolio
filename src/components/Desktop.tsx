@@ -12,6 +12,7 @@ import SkillsApp from "./apps/SkillsApp";
 import ProjectsApp from "./apps/ProjectsApp";
 import ResumeApp from "./apps/ResumeApp";
 import ContactApp from "./apps/ContactApp";
+import SpotifyApp from "./apps/SpotifyApp";
 import { apps } from "@/lib/data";
 
 type WindowState = {
@@ -30,6 +31,7 @@ const DEFAULT_SIZES: Record<string, { width: number; height: number }> = {
   projects: { width: 680, height: 580 },
   resume: { width: 480, height: 400 },
   contact: { width: 640, height: 520 },
+  spotify: { width: 380, height: 600 },
 };
 
 const DEFAULT_POSITIONS: Record<string, { x: number; y: number }> = {
@@ -40,6 +42,7 @@ const DEFAULT_POSITIONS: Record<string, { x: number; y: number }> = {
   projects: { x: 90, y: 45 },
   resume: { x: 200, y: 80 },
   contact: { x: 110, y: 55 },
+  spotify: { x: 60, y: 40 },
 };
 
 const APP_CONTENT: Record<string, React.ReactNode> = {
@@ -50,6 +53,7 @@ const APP_CONTENT: Record<string, React.ReactNode> = {
   projects: <ProjectsApp />,
   resume: <ResumeApp />,
   contact: <ContactApp />,
+  spotify: <SpotifyApp />,
 };
 
 const initialWindows: WindowState[] = apps.map((app) => ({
