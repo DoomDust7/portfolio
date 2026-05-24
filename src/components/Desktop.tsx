@@ -15,6 +15,7 @@ import ResumeApp from "./apps/ResumeApp";
 import ContactApp from "./apps/ContactApp";
 import SpotifyApp from "./apps/SpotifyApp";
 import TerminalApp from "./apps/TerminalApp";
+import JourneyApp from "./apps/JourneyApp";
 import { apps, WALLPAPERS } from "@/lib/data";
 
 type WindowState = {
@@ -27,6 +28,7 @@ type WindowState = {
 
 const DEFAULT_SIZES: Record<string, { width: number; height: number }> = {
   about: { width: 560, height: 520 },
+  journey: { width: 660, height: 580 },
   experience: { width: 620, height: 560 },
   education: { width: 540, height: 440 },
   skills: { width: 520, height: 500 },
@@ -39,6 +41,7 @@ const DEFAULT_SIZES: Record<string, { width: number; height: number }> = {
 
 const DEFAULT_POSITIONS: Record<string, { x: number; y: number }> = {
   about: { x: 80, y: 50 },
+  journey: { x: 100, y: 55 },
   experience: { x: 120, y: 60 },
   education: { x: 160, y: 70 },
   skills: { x: 100, y: 55 },
@@ -51,6 +54,7 @@ const DEFAULT_POSITIONS: Record<string, { x: number; y: number }> = {
 
 const APP_CONTENT: Record<string, React.ReactNode> = {
   about: <AboutApp />,
+  journey: <JourneyApp />,
   experience: <ExperienceApp />,
   education: <EducationApp />,
   skills: <SkillsApp />,

@@ -29,6 +29,7 @@ function runCommand(cmd: string, history: string[]): Line[] {
       return [
         { type: "info", text: "Available commands:" },
         { type: "output", text: "  whoami   — who am I?" },
+        { type: "output", text: "  origin   — my origin story" },
         { type: "output", text: "  neofetch — system info with ASCII art" },
         { type: "output", text: "  ls       — list portfolio sections" },
         { type: "output", text: "  cat      — cat about | contact" },
@@ -43,6 +44,16 @@ function runCommand(cmd: string, history: string[]): Line[] {
 
     case "whoami":
       return [{ type: "output", text: `${profile.name} — ${profile.roles[0]} & ${profile.roles[1]}` }];
+
+    case "origin":
+      return [
+        { type: "info", text: "── Origin Story ──────────────────────────────────" },
+        ...profile.originStory.split("\n").map((line) => ({
+          type: (line.trim() === "" ? "blank" : "output") as "blank" | "output",
+          text: line,
+        })),
+        { type: "info", text: "──────────────────────────────────────────────────" },
+      ];
 
     case "neofetch":
       return [{ type: "info", text: "__NEOFETCH__" }];

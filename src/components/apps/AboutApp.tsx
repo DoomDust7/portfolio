@@ -95,9 +95,9 @@ export default function AboutApp() {
       {/* Quick stats */}
       <div className="mt-8 grid grid-cols-3 gap-4">
         {[
-          { value: "3.89", label: "MS GPA at ASU" },
-          { value: "2+", label: "Years Industry Exp." },
-          { value: "3", label: "Top Companies" },
+          { value: "3.89", label: "MS GPA @ ASU" },
+          { value: "5+", label: "Companies & Roles" },
+          { value: "9mo", label: "Samsung Research" },
         ].map(({ value, label }) => (
           <div
             key={label}

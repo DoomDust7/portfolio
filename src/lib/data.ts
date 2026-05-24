@@ -6,7 +6,24 @@ export const profile = {
   linkedin: "https://linkedin.com/in/manav-ananthakumar-954874155",
   github: "https://github.com/DoomDust7",
   roles: ["Data Engineer", "AI/LLM Builder", "MS Data Science @ ASU"],
-  bio: "Data Engineer with 2+ years at Shell, Bosch, and Deloitte, now pursuing an MS in Data Science at Arizona State University (GPA 3.89). I build AI systems — from RAG pipelines and LLM agents to algorithmic trading platforms. Won 3rd place at MLH Innovation Hacks 2.0 among 80 teams.",
+  bio: "Started by cloning the OnePlus website in high school, shipped Tetris in C++ with a high-score database. Since then: Samsung Research (9-month live video stitching pipeline), Affine Analytics, Deloitte, Bosch, and 2 years at Shell building enterprise data infrastructure. Now at Arizona State University (MS Data Science, GPA 3.89), I build AI systems — RAG pipelines, LLM agents, and algorithmic trading platforms. The instinct is always the same: understand it, then build it better.",
+  originStory: `I grew up a gamer — Desert Storm on Windows 98, then NFS Underground 2 on my dad's XP laptop.
+
+In high school, I built my first website: a CSS clone of the official OnePlus site. That was my first taste of "I can make things look like what I see on screen." Senior year I went deeper — learned C++ and databases, and built Tetris from scratch with a high-score database.
+
+That obsession took me to Manipal Institute of Technology for a BTech in Computer Science.
+
+Freshman year: interned at Smart Nomad (AI travel planner), did EDA on Kaggle datasets. Joined the CSE club, explored ML.
+
+Sophomore summer: Affine Analytics, cloud engineering team. Built an MLOps POC — trained classifiers on the Rain Tomorrow Australia dataset, pushed model artifacts to Azure Blob, built a Streamlit app that fetched the latest model and served predictions. Understood the full MLOps loop.
+
+2022: Selected for Samsung PRISM — a 9-month industry-academia research project with Samsung Research Institute Bangalore. Built an OnDevice Multi-camera Live Video Stitching pipeline: Flutter 3D viewport, AWS cloud backend, MJPEG streaming, ORB/RANSAC homography engine.
+
+Same summer: interned at Deloitte USI as a Tax Technology intern. Built a document management system in ASP.NET Core, designed a 6-sheet Power BI star schema over ~1M rows.
+
+2023: Data Science intern at Bosch — LSP recommendation system, NLP on HR survey data. Then: offer from Shell as an Associate Data Engineer. Worked on SAC OSE migration, S/4HANA brownfield automation, and financial reporting pipelines across Downstream, Group Finance, and Upstream.
+
+2025: Arizona State University. MS in Data Science. GPA 3.89. Building AI systems at a different altitude.`,
 };
 
 export const experience = [
@@ -19,7 +36,7 @@ export const experience = [
     bullets: [
       "Owned end-to-end SAC OSE migration, re-engineering 7+ legacy stories connected to multi-instance SAP ECC sources and validating data parity across business units post-cutover.",
       "Revamped SAP HANA calculation views across Downstream and Group Finance targets, cutting data processing latency by 15% on enterprise-wide financial reporting pipelines.",
-      "Built a Python automation framework for ECC-to-S/4HANA brownfield migration, applying surrogate key logic to cross-compare data dumps across 8+ ECC instances.",
+      "Built a Python automation framework for ECC-to-S/4HANA brownfield migration, applying surrogate key logic to cross-compare data dumps across 8+ ECC instances — saving 50+ hours of manual validation.",
       "Validated S/4HANA-to-SAC data integrity across Downstream, Group Finance, and Upstream HANA targets, serving as the sign-off layer for production go-live readiness.",
     ],
   },
@@ -36,6 +53,19 @@ export const experience = [
     ],
   },
   {
+    company: "Samsung Research Institute – Bangalore",
+    role: "Research Intern (Samsung PRISM)",
+    period: "Jan 2022 – Sep 2022",
+    location: "Manipal, India × SRI-B",
+    color: "#1428A0",
+    bullets: [
+      "Selected for Samsung PRISM — a 9-month industry-academia research MoU between SRI-B and MIT Manipal — to build an OnDevice Multi-camera Live Video Stitching pipeline with bi-weekly review meetings from the SRI-B engineering team.",
+      "Built a Flutter 3D viewport app that provisioned an AWS cloud instance on demand, ran the video stitching backend, and streamed stitched frames to the frontend via MJPEG.",
+      "Extended the stitching code to accept online video sources and integrated MJPEG streaming as an initial test channel before full-app integration.",
+      "Re-implemented the stitching algorithm (ORB keypoints + BF matching + RANSAC homography) as an interactive Streamlit demo — published as Samsung-PRISM-Project on GitHub.",
+    ],
+  },
+  {
     company: "Deloitte USI",
     role: "Tax Technology Intern",
     period: "May 2022 – Jul 2022",
@@ -44,6 +74,17 @@ export const experience = [
     bullets: [
       "Built a Document Management System in ASP.NET Core 8 MVC + EF Core + SQLite with bcrypt-authenticated login and .pbix-only upload validation.",
       "Modeled a 6-sheet star schema (~1M rows, 14 manufacturers) in Power BI with DAX measures for rolling-12M market share, YTD units, and YoY delta — adopted by 10+ stakeholders.",
+    ],
+  },
+  {
+    company: "Affine Analytics",
+    role: "Cloud Engineering Intern",
+    period: "Jun 2021 – Aug 2021",
+    location: "Bangalore, India",
+    color: "#6366f1",
+    bullets: [
+      "Built an MLOps POC for Affine's internal platform: trained logistic regression, random forest, and XGBoost classifiers on the Rain Tomorrow Australia Kaggle dataset and benchmarked model accuracy end-to-end.",
+      "Pushed serialized model artifacts (pickle files) to Azure Blob Storage; built a Streamlit app that fetched the most recently uploaded model and served live predictions — replicating the full MLOps lifecycle for a sophomore engineer.",
     ],
   },
 ];
@@ -70,7 +111,7 @@ export const education = [
 export const skills = [
   {
     category: "Programming",
-    items: ["Python", "C/C++", "SQL", "React", "ASP.NET Core"],
+    items: ["Python", "C/C++", "SQL", "Dart/Flutter", "React", "ASP.NET Core"],
   },
   {
     category: "ML Frameworks",
@@ -90,7 +131,7 @@ export const skills = [
   },
   {
     category: "Backend & DevOps",
-    items: ["FastAPI", "Docker", "MLflow", "Linux"],
+    items: ["FastAPI", "Docker", "MLflow", "Firebase", "Node.js", "Linux"],
   },
   {
     category: "Visualization",
@@ -152,6 +193,30 @@ export const projects: Project[] = [
     category: "AI/ML",
   },
   {
+    title: "Sensor Drift Investigation",
+    description:
+      "ML intern take-home: mass-balance residual analysis and sensor drift detection for a chemical processing facility operating a network of interconnected tanks and flow meters. Localised faulty sensors using cross-tank attribution, quantified per-sensor drift rates across 4 time windows, and built an interactive Streamlit dashboard visualising the full pipeline.",
+    stack: ["Python", "Pandas", "Scikit-learn", "Streamlit", "Mass-Balance Analysis"],
+    live: "https://doomdust7-sensor-drift-investigation-dashboard-ahatnh.streamlit.app/",
+    category: "Data",
+  },
+  {
+    title: "Samsung PRISM – Video Stitching",
+    description:
+      "9-month Samsung Research Institute × MIT Manipal industry-academia project: OnDevice Multi-camera Live Video Stitching pipeline. Implemented ORB keypoint detection, brute-force matching, RANSAC homography estimation, and perspective warping to produce seamless panoramas. Re-implemented as an interactive Streamlit demo with live parameter tuning.",
+    stack: ["Python", "OpenCV", "ORB/RANSAC", "Streamlit", "Flutter", "AWS"],
+    github: "https://github.com/DoomDust7/Samsung-PRISM-Project",
+    category: "Internship",
+  },
+  {
+    title: "CleanCut",
+    description:
+      "Auto-editor that transcribes video with OpenAI Whisper, detects silence gaps and phonetic fillers (um, uh, hmm), and splices them out with a single ffmpeg re-encode pass. Zero API key required — Whisper runs fully on-device. Supports any language via --language flag.",
+    stack: ["Python", "OpenAI Whisper", "ffmpeg", "CLI"],
+    github: "https://github.com/DoomDust7/cleancut",
+    category: "Full Stack",
+  },
+  {
     title: "GG-Mart",
     description:
       "Full-featured online marketplace with product listings, cart management, user authentication, and order processing. Built with a modern TypeScript stack.",
@@ -203,6 +268,7 @@ export const projects: Project[] = [
 
 export const apps = [
   { id: "about", label: "About", icon: "👤" },
+  { id: "journey", label: "Journey", icon: "🗺️" },
   { id: "experience", label: "Experience", icon: "💼" },
   { id: "education", label: "Education", icon: "🎓" },
   { id: "skills", label: "Skills", icon: "⚡" },
