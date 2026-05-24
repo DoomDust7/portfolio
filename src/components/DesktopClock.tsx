@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useWeather } from "@/hooks/useWeather";
 
 export default function DesktopClock() {
   const [now, setNow] = useState<Date | null>(null);
+  const weather = useWeather();
 
   useEffect(() => {
     const update = () => setNow(new Date());
@@ -12,10 +14,6 @@ export default function DesktopClock() {
   }, []);
 
   if (!now) return null;
-
-  const hour = now.getHours();
-  const isDay = hour >= 6 && hour < 20;
-  const weather = isDay ? "☀️  95°F" : "🌙  78°F";
 
   const timeStr = now.toLocaleTimeString([], {
     hour: "numeric",
@@ -27,6 +25,13 @@ export default function DesktopClock() {
     month: "long",
     day: "numeric",
   });
+
+  // Weather string: real if loaded, fallback to day/night emoji only
+  const hour = now.getHours();
+  const fallbackIcon = hour >= 6 && hour < 20 ? "☀️" : "🌙";
+  const weatherStr = weather
+    ? `${weather.icon}  ${weather.temp}°F`
+    : fallbackIcon;
 
   return (
     <div
@@ -49,7 +54,7 @@ export default function DesktopClock() {
           fontFamily: '"Ubuntu", sans-serif',
         }}
       >
-        {dateStr} &nbsp;·&nbsp; {weather}
+        {dateStr} &nbsp;·&nbsp; {weatherStr}
       </div>
       <div
         style={{

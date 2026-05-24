@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Draggable from "react-draggable";
 import { AnimatePresence, motion } from "framer-motion";
+import { APP_ICONS } from "@/lib/appIcons";
 
 interface WindowProps {
   id: string;
@@ -21,6 +23,7 @@ interface WindowProps {
 }
 
 export default function Window({
+  id,
   title,
   icon,
   isOpen,
@@ -67,13 +70,15 @@ export default function Window({
     window.addEventListener("mouseup", onUp);
   };
 
-  const effectiveSize = isMaximized || isMobile
-    ? { width: "100%", height: "100%" }
-    : { width: size.width, height: size.height };
+  const effectiveSize =
+    isMaximized || isMobile
+      ? { width: "100%", height: "100%" }
+      : { width: size.width, height: size.height };
 
-  const positionStyle = isMaximized || isMobile
-    ? { top: 32, left: 64, right: 0, bottom: 0 }
-    : {};
+  const positionStyle =
+    isMaximized || isMobile ? { top: 32, left: 64, right: 0, bottom: 0 } : {};
+
+  const svgIcon = APP_ICONS[id];
 
   return (
     <AnimatePresence>
@@ -113,23 +118,48 @@ export default function Window({
               <div className="flex items-center gap-1.5">
                 <button
                   className="traffic-red w-3 h-3 rounded-full hover:brightness-110 transition-all"
-                  onClick={(e) => { e.stopPropagation(); onClose(); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
                   aria-label="Close"
                 />
                 <button
                   className="traffic-yellow w-3 h-3 rounded-full hover:brightness-110 transition-all"
-                  onClick={(e) => { e.stopPropagation(); onMinimize(); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onMinimize();
+                  }}
                   aria-label="Minimize"
                 />
                 <button
                   className="traffic-green w-3 h-3 rounded-full hover:brightness-110 transition-all"
-                  onClick={(e) => { e.stopPropagation(); onMaximize(); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onMaximize();
+                  }}
                   aria-label="Maximize"
                 />
               </div>
+
+              {/* Title + icon */}
               <div className="flex items-center gap-2 flex-1 justify-center">
-                <span className="text-base">{icon}</span>
-                <span className="text-sm font-medium" style={{ color: "#94a3b8" }}>{title}</span>
+                {svgIcon ? (
+                  <div style={{ position: "relative", width: 18, height: 18, flexShrink: 0 }}>
+                    <Image
+                      src={svgIcon}
+                      alt={title}
+                      fill
+                      className="object-contain"
+                      sizes="18px"
+                    />
+                  </div>
+                ) : (
+                  <span className="text-base">{icon}</span>
+                )}
+                <span className="text-sm font-medium" style={{ color: "#94a3b8" }}>
+                  {title}
+                </span>
               </div>
             </div>
 
@@ -148,8 +178,18 @@ export default function Window({
                 onMouseDown={onResizeStart}
                 style={{ zIndex: 10 }}
               >
-                <svg width="10" height="10" viewBox="0 0 10 10" style={{ position: "absolute", bottom: 3, right: 3 }}>
-                  <path d="M9 1L1 9M9 5L5 9M9 9" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" />
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 10 10"
+                  style={{ position: "absolute", bottom: 3, right: 3 }}
+                >
+                  <path
+                    d="M9 1L1 9M9 5L5 9M9 9"
+                    stroke="rgba(255,255,255,0.3)"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </div>
             )}
